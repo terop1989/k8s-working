@@ -1,0 +1,5 @@
+---
+- name: Deploy K8S Cluster
+  hosts: all
+  roles:
+    - nfs-mount
