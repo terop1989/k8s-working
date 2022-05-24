@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: jenkins
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: jenkins.terop-kuber.com
+    http:
+      paths:
+      - backend:
+          serviceName: jenkins-service
+          servicePort: 88
+        path: /
