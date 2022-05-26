@@ -1,16 +1,25 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: jenkins-ingress
   namespace: jenkins
   annotations:
     kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/cluster-issuer: jenkins-issuer
 spec:
+  tls:
+    - hosts:
+      - jenkins.terop-kuber.com
+      secretName: jenkins-tls
+
   rules:
-  - host: jenkins.terop-kuber.com
-    http:
-      paths:
-      - backend:
-          serviceName: jenkins-service
-          servicePort: 88
-        path: /
+    - host: "jenkins.terop-kuber.com"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jenkins-service
+                port:
+                  name: http
