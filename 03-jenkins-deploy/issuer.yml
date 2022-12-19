@@ -4,5 +4,4 @@ metadata:
   name: jenkins-issuer
   namespace: jenkins
 spec:
-  ca:
-    secretName: jenkins-tls-secret
+  selfSigned: {}
