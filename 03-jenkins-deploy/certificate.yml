@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jenkins-cert
+  namespace: jenkins
+spec:
+  secretName: jenkins-tls-secret
+  issuerRef:
+    kind: Issuer
+    name: jenkins-issuer
+  commonName: "jenkins.terop-kuber.com"
+  dnsNames:
+  - "jenkins.terop-kuber.com"
