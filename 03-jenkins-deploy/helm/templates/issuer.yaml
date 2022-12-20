@@ -1,7 +1,6 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: jenkins-issuer
-  namespace: jenkins
+  name: {{ .Release.Name }}-issuer
 spec:
   selfSigned: {}

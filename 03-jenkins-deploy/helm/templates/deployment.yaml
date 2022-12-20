@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+spec:
+  selector:
+    matchLabels:
+      {{ .Values.selector }}
+
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+
+  template:
+    metadata:
+      labels:
+        {{ .Values.selector }}
+
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-container
+          image: {{ .Values.container.image }}
+          ports:
+            - containerPort: {{ .Values.container.port }}
+
+          volumeMounts:
+          - name: {{ .Release.Name }}-volume
+            mountPath: {{ .Values.volumes.data.mountPath }}
+
+      volumes:
+      - name: {{ .Release.Name }}-volume
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-pvc
