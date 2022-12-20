@@ -1,0 +1,22 @@
+selector: "dev: repl"
+
+pvc:
+  storageClassName: managed-nfs-storage
+  storage: 5Gi
+
+container:
+  image: jenkins:2.60.3-alpine
+  port: 8080
+
+ingress:
+  host: jenkins.terop-kuber.com
+  class: nginx
+
+volumes:
+  data:
+    mountPath: /var/jenkins_home
+
+service:
+  port:
+    port_name: http-jenkins
+    port_number: 8080
