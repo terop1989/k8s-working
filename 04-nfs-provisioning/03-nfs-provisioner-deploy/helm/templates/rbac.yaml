@@ -1,14 +1,13 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: nfs-client-provisioner
-  # replace with namespace where provisioner is deployed
-  namespace: nfs-client
+  name: {{ .Release.Name }}-sa
+
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: nfs-client-provisioner-runner
+  name: {{ .Release.Name }}-cr
 rules:
   - apiGroups: [""]
     resources: ["persistentvolumes"]
@@ -26,23 +25,20 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: run-nfs-client-provisioner
+  name: {{ .Release.Name }}-crb
 subjects:
   - kind: ServiceAccount
-    name: nfs-client-provisioner
-    # replace with namespace where provisioner is deployed
-    namespace: nfs-client
+    name: {{ .Release.Name }}-sa
+    namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
-  name: nfs-client-provisioner-runner
+  name: {{ .Release.Name }}-cr
   apiGroup: rbac.authorization.k8s.io
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: leader-locking-nfs-client-provisioner
-  # replace with namespace where provisioner is deployed
-  namespace: nfs-client
+  name: {{ .Release.Name }}-r
 rules:
   - apiGroups: [""]
     resources: ["endpoints"]
@@ -51,15 +47,11 @@ rules:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: leader-locking-nfs-client-provisioner
-  # replace with namespace where provisioner is deployed
-  namespace: nfs-client
+  name: {{ .Release.Name }}-rb
 subjects:
   - kind: ServiceAccount
-    name: nfs-client-provisioner
-    # replace with namespace where provisioner is deployed
-    namespace: nfs-client
+    name: {{ .Release.Name }}-sa
 roleRef:
   kind: Role
-  name: leader-locking-nfs-client-provisioner
+  name: {{ .Release.Name }}-r
   apiGroup: rbac.authorization.k8s.io

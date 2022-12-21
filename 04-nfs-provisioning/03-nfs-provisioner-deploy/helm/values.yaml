@@ -1,0 +1,10 @@
+provisioner_name: k8s-local.com/nfs
+storage_class: managed-nfs-storage
+label: "app: nfs-client-provisioner"
+
+container:
+  image: quay.io/external_storage/nfs-client-provisioner:latest
+
+nfs:
+  server: docker1.local.com
+  path: /nfs-dynamic

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+  labels:
+    {{ .Values.label }}
+
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{ .Values.label }}
+  template:
+    metadata:
+      labels:
+        {{ .Values.label }}
+    spec:
+      serviceAccountName: {{ .Release.Name }}-sa
+      containers:
+        - name: {{ .Release.Name }}-container
+          image: {{ .Values.container.image }}
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: {{ .Release.Name }}-volume
+              mountPath: /persistentvolumes
+          env:
+            - name: PROVISIONER_NAME
+              value: {{ .Values.provisioner_name }}
+            - name: NFS_SERVER
+              value: {{ .Values.nfs.server }}
+            - name: NFS_PATH
+              value: {{ .Values.nfs.path }}
+      volumes:
+        - name: {{ .Release.Name }}-volume
+          nfs:
+            server: {{ .Values.nfs.server }}
+            path: {{ .Values.nfs.path }}
