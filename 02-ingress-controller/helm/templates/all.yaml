@@ -319,7 +319,7 @@ spec:
         {{ .Values.node_label }}
       containers:
         - name: controller
-          image: {{ .Values.images.ingress_controller }}
+          image: {{ .Values.images.ingress_controller.name }}:{{ .Values.images.ingress_controller.tag }}
           imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
@@ -487,7 +487,7 @@ spec:
     spec:
       containers:
         - name: create
-          image: {{ .Values.images.ingress_controller_admission }}
+          image: {{ .Values.images.ingress_controller_admission.name }}:{{ .Values.images.ingress_controller_admission.tag }}
           imagePullPolicy: IfNotPresent
           args:
             - create
@@ -520,7 +520,7 @@ spec:
     spec:
       containers:
         - name: patch
-          image: {{ .Values.images.ingress_controller_admission }}
+          image: {{ .Values.images.ingress_controller_admission.name }}:{{ .Values.images.ingress_controller_admission.tag }}
           imagePullPolicy: IfNotPresent
           args:
             - patch

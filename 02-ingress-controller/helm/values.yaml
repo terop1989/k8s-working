@@ -3,8 +3,12 @@ external_ports:
   https: 30443
 
 images: 
-  ingress_controller: us.gcr.io/k8s-artifacts-prod/ingress-nginx/controller:v0.34.0@sha256:56633bd00dab33d92ba14c6e709126a762d54a75a6e72437adefeaaca0abb069
-  ingress_controller_admission: docker.io/jettech/kube-webhook-certgen:v1.2.2
+  ingress_controller: 
+    name: us.gcr.io/k8s-artifacts-prod/ingress-nginx/controller
+    tag: v0.34.0
+  ingress_controller_admission: 
+    name: docker.io/jettech/kube-webhook-certgen
+    tag: v1.2.2
 
 ingress_class: nginx
 
