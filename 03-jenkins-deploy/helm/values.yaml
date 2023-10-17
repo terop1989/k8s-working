@@ -1,7 +1,6 @@
 selector: "dev: repl"
 
 pvc:
-  enable: false
   storageClassName: managed-nfs-storage
   storage: 5Gi
 
@@ -14,6 +13,7 @@ ingress:
   class: nginx
 
 volumes:
+  enable: false
   data:
     mountPath: /var/jenkins_home
 
