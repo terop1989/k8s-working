@@ -1,6 +1,7 @@
 selector: "dev: repl"
 
 pvc:
+  enable: false
   storageClassName: managed-nfs-storage
   storage: 5Gi
 
@@ -20,3 +21,6 @@ service:
   port:
     port_name: http-jenkins
     port_number: 8080
+
+tls:
+  enable: false

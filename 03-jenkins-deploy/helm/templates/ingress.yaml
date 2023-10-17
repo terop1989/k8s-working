@@ -6,10 +6,12 @@ metadata:
     kubernetes.io/ingress.class: {{ .Values.ingress.class }}
     certmanager.k8s.io/issuer: {{ .Release.Name }}-issuer
 spec:
+{{- if .Values.tls.enable }}
   tls:
     - hosts:
       - {{ .Values.ingress.host }}
       secretName: {{ .Release.Name }}-tls-secret
+{{- end }}
 
   rules:
     - host: "{{ .Values.ingress.host }}"
