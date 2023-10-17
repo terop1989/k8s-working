@@ -1,4 +1,4 @@
-{{- if .Values.tls.enable }}
+{{- if .Values.volumes.enable }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

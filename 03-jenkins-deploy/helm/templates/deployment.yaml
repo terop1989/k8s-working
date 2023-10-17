@@ -25,7 +25,7 @@ spec:
           ports:
             - containerPort: {{ .Values.container.port }}
 
-{{- if .Values.tls.enable }}
+{{- if .Values.volumes.enable }}
           volumeMounts:
           - name: {{ .Release.Name }}-volume
             mountPath: {{ .Values.volumes.data.mountPath }}
