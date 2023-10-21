@@ -7,7 +7,17 @@ export ROLENAME=petr-example-role
 kubectl create ns $NAMESPACE
 kubectl create serviceaccount $ACCOUNT_NAME --namespace $NAMESPACE
 
-TOKEN_NAME=$(kubectl get serviceAccounts $ACCOUNT_NAME --namespace $NAMESPACE  -o jsonpath="{.secrets[0].name}")
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/service-account-token
+metadata:
+  name: $ACCOUNT_NAME-secret
+  namespace: $NAMESPACE
+  annotations:
+    kubernetes.io/service-account.name: $ACCOUNT_NAME
+EOF
+
 TOKEN=$(kubectl describe secrets $TOKEN_NAME --namespace $NAMESPACE | grep 'token:' | rev | cut -d ' ' -f1 | rev)
 CERTIFICATE_AUTHORITY_DATA=$(kubectl config view --flatten --minify -o jsonpath="{.clusters[0].cluster.certificate-authority-data}")
 SERVER_URL=$(kubectl config view --flatten --minify -o jsonpath="{.clusters[0].cluster.server}")
@@ -33,7 +43,7 @@ contexts:
 current-context: $CLUSTER_NAME-$ACCOUNT_NAME-context
 EOF
 
-kubectl --kubeconfig=$CLUSTER_NAME-$ACCOUNT_NAME-kube.conf get po -n $NAMESPACE
+kubectl --kubeconfig=$CLUSTER_NAME-$ACCOUNT_NAME-kube.conf get pod -n $NAMESPACE
 
 cat <<EOF > $ROLENAME-role.yaml ; kubectl apply -f $ROLENAME-role.yaml -n $NAMESPACE
 apiVersion: rbac.authorization.k8s.io/v1
@@ -70,3 +80,8 @@ roleRef:
 EOF
 
 kubectl --kubeconfig=$CLUSTER_NAME-$ACCOUNT_NAME-kube.conf get po -n $NAMESPACE
+
+kubectl delete ns $NAMESPACE
+rm -f $ROLENAME-role.yaml
+rm -f $ROLENAME-rolebinding.yaml
+rm -f $CLUSTER_NAME-$ACCOUNT_NAME-kube.conf
