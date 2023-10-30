@@ -1,0 +1,30 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch:7.16.3
+    container_name: elasticsearch
+    environment:
+      - node.name=es-node
+      - cluster.name=es-cluster
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - es-net
+
+  kibana:
+    image: kibana:7.16.3
+    container_name: kibana
+    environment:
+      - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+    ports:
+      - 5601:5601
+    networks:
+      - es-net
+    depends_on:
+      - elasticsearch
+    restart: "unless-stopped"
+
+networks:
+  es-net:
