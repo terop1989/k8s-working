@@ -4,11 +4,16 @@ kind: Certificate
 metadata:
   name: {{ .Release.Name }}-cert
 spec:
+  isCA: true
+  commonName: {{ .Release.Name }}-cert
   secretName: {{ .Release.Name }}-tls-secret
+  privateKey:
+    algoritm: ECDSA
+    size: 2048 
   issuerRef:
-    kind: Issuer
     name: {{ .Release.Name }}-issuer
-  commonName: "{{ .Values.ingress.host }}"
+    kind: Issuer
+    group: cert-manager.io
   dnsNames:
   - "{{ .Values.ingress.host }}"
 {{- end }}
