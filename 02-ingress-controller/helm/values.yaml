@@ -4,11 +4,11 @@ external_ports:
 
 images: 
   ingress_controller: 
-    name: us.gcr.io/k8s-artifacts-prod/ingress-nginx/controller
-    tag: v0.34.0
+    name: registry.k8s.io/ingress-nginx/controller
+    tag: v1.8.1
   ingress_controller_admission: 
-    name: docker.io/jettech/kube-webhook-certgen
-    tag: v1.2.2
+    name: registry.k8s.io/ingress-nginx/kube-webhook-certgen
+    tag: v20230407
 
 ingress_class: nginx
 
