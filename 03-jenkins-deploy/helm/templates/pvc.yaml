@@ -1,14 +1,14 @@
-{{- if .Values.volumes.enable }}
+{{- if .Values.volumes.data.enable }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Release.Name }}-pvc
 
 spec:
-  storageClassName: {{ .Values.pvc.storageClassName }}
+  storageClassName: {{ .Values.volumes.data.storageClassName }}
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: {{ .Values.pvc.storage }}
+      storage: {{ .Values.volumes.data.storage }}
 {{- end }}

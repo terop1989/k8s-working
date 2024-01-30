@@ -19,13 +19,24 @@ spec:
         {{ .Values.selector }}
 
     spec:
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: {{ .Values.nodeAffinity.key }}
+                operator: In
+                values:
+                - {{ .Values.nodeAffinity.value }}
+
       containers:
         - name: {{ .Release.Name }}-container
-          image: {{ .Values.container.image }}
+          image: {{ .Values.container.image.name }}:{{ .Values.container.image.tag }}
           ports:
             - containerPort: {{ .Values.container.port }}
 
-{{- if .Values.volumes.enable }}
+{{- if .Values.volumes.data.enable }}
           volumeMounts:
           - name: {{ .Release.Name }}-volume
             mountPath: {{ .Values.volumes.data.mountPath }}

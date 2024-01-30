@@ -4,5 +4,6 @@ kind: Issuer
 metadata:
   name: {{ .Release.Name }}-issuer
 spec:
-  selfSigned: {}
+  ca:
+    secretName: {{ .Release.Name }}-tls-secret
 {{- end }}

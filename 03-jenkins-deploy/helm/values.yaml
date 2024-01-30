@@ -1,11 +1,9 @@
 selector: "dev: repl"
 
-pvc:
-  storageClassName: managed-nfs-storage
-  storage: 5Gi
-
 container:
-  image: jenkins:2.60.3-alpine
+  image: 
+    name: jenkins/jenkins
+    tag: 2.426.3-alpine-jdk21
   port: 8080
 
 ingress:
@@ -13,14 +11,15 @@ ingress:
   class: nginx
 
 volumes:
-  enable: false
   data:
+    enable: false
+    storageClassName: managed-nfs-storage
+    storage: 5Gi
     mountPath: /var/jenkins_home
 
-service:
-  port:
-    port_name: http-jenkins
-    port_number: 8080
-
 tls:
-  enable: false
+  enable: true
+
+nodeAffinity:
+  key: jenkins-app
+  value: enable
