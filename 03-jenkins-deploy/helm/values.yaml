@@ -22,4 +22,5 @@ tls:
 
 nodeAffinity:
   key: jenkins-app
-  value: enable
+  values:
+    node1
