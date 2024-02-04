@@ -12,7 +12,6 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/enable-underscores-in-headers: "true"
 spec:
-  ingressClassName: nginx
   rules:
   - http:
       paths:
