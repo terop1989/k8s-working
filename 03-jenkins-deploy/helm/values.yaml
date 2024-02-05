@@ -23,4 +23,4 @@ tls:
 nodeAffinity:
   key: jenkins-app
   values:
-    node1
+    - node1
