@@ -28,7 +28,9 @@ spec:
               - key: {{ .Values.nodeAffinity.key }}
                 operator: In
                 values:
-                  -{{ .Values.nodeAffinity.values | indent 2 }}
+                  {{- range .Values.nodeAffinity.values }}
+                  - {{ . }}
+                  {{- end }}
 
       containers:
         - name: {{ .Release.Name }}-container
