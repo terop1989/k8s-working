@@ -12,7 +12,7 @@ ingress:
 
 volumes:
   data:
-    enable: false
+    enable: true
     storageClassName: managed-nfs-storage
     storage: 5Gi
     mountPath: /var/jenkins_home
