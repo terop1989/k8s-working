@@ -20,7 +20,7 @@ spec:
       serviceAccountName: {{ .Release.Name }}-sa
       containers:
         - name: {{ .Release.Name }}-container
-          image: {{ .Values.container.image }}
+          image: {{ .Values.container.image.name }}:{{ .Values.container.image.tag }}
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: {{ .Release.Name }}-volume
