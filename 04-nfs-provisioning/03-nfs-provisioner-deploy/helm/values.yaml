@@ -3,7 +3,9 @@ storage_class: managed-nfs-storage
 label: "app: nfs-client-provisioner"
 
 container:
-  image: quay.io/external_storage/nfs-client-provisioner:latest
+  image: 
+    name: gcr.io/k8s-staging-sig-storage/nfs-subdir-external-provisioner
+    tag: v4.0.0
 
 nfs:
   server: docker1.local.com
