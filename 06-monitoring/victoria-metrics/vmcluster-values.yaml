@@ -14,3 +14,5 @@ vmstorage:
   podAnnotations:
       prometheus.io/scrape: "true"
       prometheus.io/port: "8482"
+  persistentVolume:
+      storageClassName: managed-nfs-storage
