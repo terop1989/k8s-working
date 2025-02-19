@@ -5,7 +5,7 @@
    helm repo update  
 
 ## Install VictoriaMetrics Cluster
-   helm install vmcluster vm/victoria-metrics-cluster -n vmcluster -f victoria-metrics/vmcluster-values.yaml --create-namespace --version=0.10.0  
+   helm install vmcluster vm/victoria-metrics-cluster -n vmcluster -f victoria-metrics/vmcluster-values.yaml --create-namespace --version=0.13.0  
 
 ## Install VictoriaMetrics Agent
    helm install vmagent vm/victoria-metrics-agent -n vmagent -f victoria-metrics/vmagent-values.yaml --create-namespace --version=0.10.0  
