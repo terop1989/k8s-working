@@ -1,4 +1,6 @@
-clusterDomainSuffix: k8s-local.com
+global:
+  cluster:
+    dnsDomain: k8s-local.com
 
 vmselect:
   podAnnotations:
