@@ -1,0 +1,12 @@
+kind: StorageClass
+metadata:
+  name: nfs-csi
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: docker1.local.com
+  share: /nfs-dynamic
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+allowVolumeExpansion: true

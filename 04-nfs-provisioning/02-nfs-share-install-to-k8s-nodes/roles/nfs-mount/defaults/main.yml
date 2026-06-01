@@ -1,3 +1,0 @@
----
-mount_point_path: /mnt/nfs
-nfs_share: nfs-dynamic

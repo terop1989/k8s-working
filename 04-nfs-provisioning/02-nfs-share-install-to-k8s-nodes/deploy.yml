@@ -1,5 +1,6 @@
 ---
-- name: Deploy K8S Cluster
-  hosts: all
-  roles:
-    - nfs-mount
+- name: Install NFS Client
+  apt:
+    name: nfs-common
+    state: present
+    update_cache: yes
